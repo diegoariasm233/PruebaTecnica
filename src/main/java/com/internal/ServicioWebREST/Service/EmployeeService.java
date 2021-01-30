@@ -146,14 +146,38 @@ public class EmployeeService {
 			    						payr.setSalarytopay(0);
 				    		    		payr.setStatus(HttpStatus.OK);
 			    					}else if(Yearfin == req.getYear()){
-			    						if(req.getMonth() > monthini && req.getMonth() < monthfin ) {
-					    		    		payr.setSalarytopay(employee.getSalarioBase());
+			    						if(Yearfin > Yearini) {
+			    							if(req.getMonth() < monthfin) {
+						    		    		payr.setSalarytopay(employee.getSalarioBase());
+						    		    		payr.setStatus(HttpStatus.OK);
+				    						}else {
+				    							payr.setSalarytopay(0);
+						    		    		payr.setStatus(HttpStatus.OK);
+				    						}
+			    						}else {
+			    							if(req.getMonth() > monthini && req.getMonth() < monthfin ) {
+						    		    		payr.setSalarytopay(employee.getSalarioBase());
+						    		    		payr.setStatus(HttpStatus.OK);
+				    						}else {
+				    							payr.setSalarytopay(0);
+						    		    		payr.setStatus(HttpStatus.OK);
+				    						}
+			    						}
+			    						
+			    						
+			    					}else if(Yearfin > req.getYear()){
+			    						if(req.getMonth() < monthini && Yearini == req.getYear()) {
+			    							payr.setSalarytopay(0);
+					    		    		payr.setStatus(HttpStatus.OK);
+			    						}else if(Yearini > req.getYear()){
+			    							payr.setSalarytopay(0);
 					    		    		payr.setStatus(HttpStatus.OK);
 			    						}else {
-			    							payr.setSalarytopay(0);
+			    							payr.setSalarytopay(employee.getSalarioBase());
 					    		    		payr.setStatus(HttpStatus.OK);
 			    						}
 			    						
+			    				
 			    					}
 			    				}
 			    			}
