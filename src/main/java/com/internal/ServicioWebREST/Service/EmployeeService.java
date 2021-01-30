@@ -111,7 +111,7 @@ public class EmployeeService {
 			    					payr.setSalarytopay(0);
 			    		    		payr.setStatus(HttpStatus.OK);
 			    				}else if(monthini == req.getMonth() && Yearini == req.getYear()) {
-			    					int APagar = Diasmes - DayIni;
+			    					int APagar = Diasmes -  (DayIni -1);
 		    						payr.setSalarytopay(APagar * ValorDiario);
 		    						payr.setStatus(HttpStatus.OK);
 			    				}else if(req.getYear() < Yearini) {
@@ -130,11 +130,11 @@ public class EmployeeService {
 				    			
 				    			if(monthini == req.getMonth() && Yearini == req.getYear()) {
 			    					if(monthini == monthfin && Yearini == Yearfin) {
-			    						int APagar =  Dayfin - DayIni;
+			    						int APagar =  Dayfin - (DayIni -1) ;
 			    						payr.setSalarytopay(APagar * ValorDiario);
 			    						payr.setStatus(HttpStatus.OK);
 			    					}else {
-			    						int APagar = Diasmes - DayIni;
+			    						int APagar = Diasmes -  (DayIni -1);
 			    						payr.setSalarytopay(APagar * ValorDiario);
 			    						payr.setStatus(HttpStatus.OK);
 			    					}
