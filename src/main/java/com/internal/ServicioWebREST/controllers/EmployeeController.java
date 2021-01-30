@@ -33,8 +33,9 @@ public class EmployeeController {
         return Employeeservice.getallEmploye();
     }
 	@GetMapping( path = "/{id}")
-    public @ResponseBody Optional<EmployeeModel> getEmployebyID(@PathVariable("id") int id) {
-        return this.Employeeservice.getEmployebyID(id);
+    public @ResponseBody ResponseEntity<MessageReturn> getEmployebyID(@PathVariable("id") int id) {
+        MessageReturn ret = this.Employeeservice.getEmployebyID(id);
+		return ResponseEntity.status(ret.getStatus()).body(ret);
     }	
 	@GetMapping(value="/pay")
     public @ResponseBody ResponseEntity<PayResponse> payMethod(@RequestBody PayRequest req){

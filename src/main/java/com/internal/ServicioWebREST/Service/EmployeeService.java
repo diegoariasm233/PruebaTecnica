@@ -114,7 +114,10 @@ public class EmployeeService {
 			    					int APagar = Diasmes - DayIni;
 		    						payr.setSalarytopay(APagar * ValorDiario);
 		    						payr.setStatus(HttpStatus.OK);
-			    				}else{
+			    				}else if(req.getYear() < Yearini) {
+		    						payr.setSalarytopay(0);
+			    		    		payr.setStatus(HttpStatus.OK);
+		    					}else{
 			    					payr.setSalarytopay(employee.getSalarioBase());
 			    		    		payr.setStatus(HttpStatus.OK);
 			    				}
@@ -156,6 +159,9 @@ public class EmployeeService {
 			    			}
 		    				payr.setMessage("Exitoso");
 		    			}
+		    			if(payr.getStatus() == null) {
+		    				payr.setStatus(HttpStatus.OK);
+		    			}
 		    			
 		    			
 		    		}else {
@@ -173,8 +179,17 @@ public class EmployeeService {
 	    	}
 	    	return payr;
 	    }
-	    public Optional<EmployeeModel> getEmployebyID(int id){
-	        return employeinterface.findById(id);
+	    public MessageReturn getEmployebyID(int id){
+	    	MessageReturn mess = new MessageReturn();
+	    	if(employeinterface.existsById(id)){
+	    		mess.setEmployee(employeinterface.findById(id).get());
+	    		mess.setStatus(HttpStatus.OK);
+	    		mess.setMessage("Exitoso");
+	        }else {
+	        	mess.setStatus(HttpStatus.NOT_FOUND);
+	    		mess.setMessage("No encontrado");
+	        }
+	    	return mess;
 	    }
 	    public MessageReturn deleteEmployee(int id){
 	    	MessageReturn mess = new MessageReturn();
